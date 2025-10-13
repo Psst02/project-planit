@@ -28,9 +28,17 @@ app.config["SESSION_TYPE"] = "filesystem"
 if os.environ.get("PYTHONANYWHERE_DOMAIN"):
     app.config["SESSION_COOKIE_SECURE"] = True     # Only send session cookie over HTTPS
     app.config["SESSION_COOKIE_SAMESITE"] = "Lax"  # Allow OAuth redirects
+else:
+    # Local development: can use HTTP
+    app.config["SESSION_COOKIE_SECURE"] = False
+    app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
     
 Session(app)
 
+@app.before_request
+def make_session_permanent():
+    session.modified = True
+    
 oauth.init_app(app)  # Sets up Authlib OAuth with Flask
 db_teardown(app)     # Register db teardown
 
