@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign up
+{% endblock %}
+
+{% block main %}
+    <form action="/signup" method="post">
+        <div class="mb-3 d-flex flex-column align-items-center">
+            <div class="w-auto c-width-div mb-2 p-0">
+                <p class="feedback text-start">{{ username_fb | default('') }}</p>
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto rounded-pill" name="username"
+                       placeholder="Username" type="text">
+            </div>
+            <div class="w-auto c-width-div m-0 p-0">
+                <p class="feedback text-start">{{ password_fb | default('') }}</p>
+                <input autocomplete="new-password" class="form-control mx-auto w-auto rounded-pill" name="password"
+                       placeholder="Password" type="password">
+            </div>
+        </div>
+        <button class="btn btn-primary rounded-pill text-center px-3 pb-2 c-width-btn" type="submit">Sign up</button>
+        <hr>
+        <!--Image source: https://www.cleanpng.com/png-google-multicolor-logo-8300190/-->
+        <a href="/login/google" class="btn btn-light border border-2 rounded-pill text-center px-3" type="button">
+            <img src="/static/google_logo.png" height="25" width="25" alt="Google multicolor logo" mb-0>
+            &nbsp;&nbsp;Log in with Google&nbsp;
+        </a>
+    </form>
+{% endblock %}
