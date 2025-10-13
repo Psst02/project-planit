@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Error
+{% endblock %}
+
+{% block main %}
+    <div class="d-flex flex-column align-items-center text-center">
+        <div class="position-relative d-inline-block">
+            <img src="/static/bored_duck_knife.png" class="img-fluid" height="300" width="300" alt="Grayscale image of bored duck holding knife with text">
+            <div class="position-absolute start-50 bottom-0 translate-middle-x text-center w-100 mb-5 fw-bold custom-text-muted">
+                {{ text }}
+            </div>
+        </div>
+    </div>
+    <!-- Back to dashboard button -->
+    <a href="/" class="btn btn-secondary rounded-pill px-4 pb-2 py-2">Back to Dashboard</a>
+{% endblock %}
