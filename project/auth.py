@@ -38,6 +38,12 @@ oauth.register(
 def login_google():
     """Redirect user to google for authentication"""
 
+    # Ensure token isn't cleared during cleanup if any
+    invite_token = session.pop("invite_token", None)
+    session.clear()
+    if invite_token:
+        session["invite_token"] = invite_token
+        
     redirect_uri = url_for('auth.google_callback', _external=True)
     return oauth.google.authorize_redirect(redirect_uri)
 
@@ -75,10 +81,15 @@ def google_callback():
         cur.execute("SELECT id, photo FROM users WHERE email = ?", (email,))
         user = cur.fetchone()
 
-    # Remember user id, photo, and show dashboard
+    # Remember user id, photo
     session["user_id"] = user["id"]
     session["user_photo"] = user["photo"]
 
+    # Handle redirects
+    invite_token = session.pop("invite_token", None)
+    if invite_token:
+        return redirect(url_for("event.respond_event", token=invite_token))
+        
     flash("You're logged in!", "success")
     return redirect("/")
 
@@ -113,10 +124,15 @@ def signup():
         cur.execute("SELECT id, photo FROM users WHERE username = ?", (username,))
         user = cur.fetchone()
 
-        # Remember user id, photo, and show dashboard
+        # Remember user id, photo
         session["user_id"] = user["id"]
         session["user_photo"] = user["photo"]
 
+        # Handle redirects
+        invite_token = session.pop("invite_token", None)
+        if invite_token:
+            return redirect(url_for("event.respond_event", token=invite_token))
+        
         flash("Sign up successful!", "success")
         return redirect("/")
 
@@ -128,10 +144,11 @@ def signup():
 def login():
     """Log user in via username"""
 
-    # Forget any user info
-    session.clear()
-
     if request.method == "POST":
+        # Ensure token isn't cleared if any
+        invite_token = session.pop("invite_token", None)
+        session.clear()
+        
         username = (request.form.get("username") or "").strip()
         password = (request.form.get("password") or "").strip()
 
@@ -163,10 +180,14 @@ def login():
             cur.execute("UPDATE users SET hash = ? WHERE username = ?", (new_hash, username))
             db.commit()
 
-        # Remember user id and show dashboard
+        # Remember user id, photo
         session["user_id"] = user["id"]
         session["user_photo"] = user["photo"]
 
+        # Handle redirects
+        if invite_token:
+            return redirect(url_for("event.respond_event", token=invite_token))
+            
         flash("You're logged in!", "success")
         return redirect("/")
 
