@@ -4,22 +4,21 @@
     Account Deletion
 {% endblock %}
 
+{% block page_title %}
+    Delete Account
+{% endblock %}
+
 {% block main %}
     <form action="/delete-account" method="post">
         <main class="flex-grow-1 overflow-auto">
-            <!-- Title -->
-            <div class="px-3">
-                <h4 class="fw-bold mb-0">Delete Account</h4>
-            </div>
             <hr>
-
             <!-- Retype password -->
             <div class="col-auto text-start">
                 <label for="psw-input" class="form-label mb-1 ms-3"><b>Retype Password</b></label>
                 {% if has_password %}
                     <p class="feedback text-start ms-3 mb-1">{{ password_fb | default('') }}</p>
-                    <div class="position-relative w-25 mb-4">
-                        <input autocomplete="off" autofocus class="form-control rounded-pill py-2 ps-3 pe-5 ms-1" name="password"
+                    <div class="position-relative mb-4">
+                        <input autocomplete="off" autofocus class="form-control rounded-pill py-2 ps-3 pe-5 ms-1 c-w-300" name="password"
                             id="psw-input" placeholder="Password" type="password">
                     </div>
                 {% else %}
