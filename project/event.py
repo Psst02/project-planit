@@ -204,14 +204,17 @@ def create_event():
 
 
 @event_bp.route("/rsvp/<token>", methods=["GET", "POST"])
-@login_required
 def respond_event(token):
     """Let user respond to valid rsvp form via invite link"""
 
-    db = get_db()
-    cur = db.cursor()
+    # Ensure user can return to form after login
+    if "user_id" not in session:
+        session["invite_token"] = token
+        return redirect("/login")
     user_id = session["user_id"]
 
+    db = get_db()
+    cur = db.cursor()
     cur.execute("SELECT * FROM invites WHERE token = ?", (token,))
     invite = cur.fetchone()
     # Validate invite
