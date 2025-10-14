@@ -12,6 +12,7 @@ from event import event_bp
 
 app = Flask(__name__)
 load_dotenv()
+print("SECRET_KEY =", os.environ.get("SECRET_KEY"))
 
 # Running locally
 if os.environ.get("PYTHONANYWHERE_DOMAIN") is None:
