@@ -1,6 +1,5 @@
 import os
 
-from dotenv import load_dotenv
 from flask import Flask
 from flask_session import Session
 from helpers import db_teardown
@@ -11,11 +10,14 @@ from acc import acc_bp
 from event import event_bp
 
 app = Flask(__name__)
-load_dotenv()
-print("SECRET_KEY =", os.environ.get("SECRET_KEY"))
 
 # Running locally
 if os.environ.get("PYTHONANYWHERE_DOMAIN") is None:
+    # Load local .env file
+    # In PythonAnywhere, loaded from WSGI
+    from dotenv import load_dotenv
+    load_dotenv()
+
     # Ensures invite links work when locally tested
     from werkzeug.middleware.proxy_fix import ProxyFix
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
