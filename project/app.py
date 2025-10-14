@@ -24,15 +24,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-# Suggested by ChatGPT (OpenAI)
-if os.environ.get("PYTHONANYWHERE_DOMAIN"):
-    app.config["SESSION_COOKIE_SECURE"] = True     # Only send session cookie over HTTPS
-    app.config["SESSION_COOKIE_SAMESITE"] = "Lax"  # Allow OAuth redirects
-else:
-    # Local development: can use HTTP
-    app.config["SESSION_COOKIE_SECURE"] = False
-    app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-    
 Session(app)
     
 oauth.init_app(app)  # Sets up Authlib OAuth with Flask
