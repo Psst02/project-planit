@@ -4,25 +4,24 @@
     Account Details
 {% endblock %}
 
+{% block page_title %}
+    Account Details
+{% endblock %}
+
 {% block main %}
     <!-- Adapted from: Stack Overflow -->
     <!-- URL: https://stackoverflow.com/questions/5628011/how-to-upload-a-file-to-my-server-using-html -->
     <!-- Answered by Calum and edited by Jon Winstanley -->
     <form action="/account-details" method="post" enctype="multipart/form-data">
         <main class="flex-grow-1 overflow-auto">
-            <!-- Title -->
-            <div class="px-3">
-                <h4 class="fw-bold mb-0">Account Details</h4>
-            </div>
             <hr>
-
             <!-- Profile photo and buttons -->
             <div class="col-auto text-start">
                 <!-- Profile photo -->
-                <img src="{{ user.photo }}" width="70" height="70" class="rounded-circle border border-secondary ms-1" alt="Profile Photo">
+                <img src="{{ user.photo }}" width="50" height="50" class="rounded-circle border border-secondary ms-1" alt="Profile Photo">
 
                 <!-- Upload button -->
-                <button class="btn btn-primary rounded-pill px-4 pb-2 py-2 ms-2" type="button" onclick="triggerUpload('upload-input')">
+                <button class="btn btn-primary rounded-pill px-3 pb-2 py-2 ms-2" type="button" onclick="triggerUpload('upload-input')">
                     <i class="bi bi-upload"></i> Upload
                 </button>
                 <!-- Adapted from: Stack Overflow -->
@@ -31,7 +30,7 @@
                 <input type="file" name="upload" accept="image/*" id="upload-input" onchange="autoSubmit(this.id)" hidden aria-hidden="true">
 
                 <!-- Remove button -->
-                <button class="btn btn-danger rounded-pill px-4 pb-2 py-2 ms-1" type="button" onclick="autoSubmit('remove-input')">
+                <button class="btn btn-danger rounded-pill px-3 pb-2 py-2 ms-1" type="button" onclick="autoSubmit('remove-input')">
                     <i class="bi bi-trash3"></i> Remove
                 </button>
                 <input type="hidden" name="remove" value="0" id="remove-input" aria-hidden="true">
@@ -49,27 +48,30 @@
                 <label for="username-input" class="form-label mb-1 ms-3"><b>Username</b></label>
                 <p class="feedback text-start ms-3 mb-1">{{ username_fb | default('') }}</p>
 
-                <div class="position-relative w-25 mb-4">
-                    <input class="form-control rounded-pill py-2 ps-3 pe-5 ms-1" name="username"
-                           type="text" id="username-input" value="{{ user.username }}" disabled>
-                    <i class="bi bi-pencil-square position-absolute top-50 end-0 translate-middle-y me-3 text-secondary cursor-pointer"
-                       role="button" onclick="enableField('username-input')"></i>
+                <div class="input-group mb-4 c-w-300">
+                    <input class="form-control rounded-start-pill py-2 ps-3 pe-5 ms-1" name="username" type="text"
+                           id="username-input" value="{{ user.username }}" disabled>
+                    <span class="input-group-text rounded-end-pill bg-grey border-2">
+                        <i class="bi bi-pencil-square text-secondary cursor-pointer" role="button"
+                           onclick="enableField('username-input')"></i>
+                    </span>
                 </div>
 
                 <!-- Email address -->
                 <label for="email-input" class="form-label mb-1 ms-3"><b>Email address</b></label>
                 <p class="feedback text-start ms-3 mb-1">{{ email_fb | default('') }}</p>
                 {% if has_google %}
-                    <div class="position-relative w-25 mb-4">
-                        <input class="form-control rounded-pill py-2 ps-3 pe-5 ms-1" name="email"
+                    <div class="mb-4">
+                        <input class="form-control rounded-pill py-2 ps-3 pe-5 ms-1 c-w-300" name="email"
                             type="text" id="email-input" value="{{ user.email }}" disabled>
                     </div>
                 {% else %}
                     <!-- Image source: https://www.cleanpng.com/png-google-multicolor-logo-8300190/ -->
-                    <div class="position-relative w-25 mb-4">
-                        <a href="/link/google" class="btn btn-light border border-2 rounded-pill text-center py-2 pe-3 ms-1" type="button">
+                    <div class="mb-4">
+                        <a href="/link/google" class="btn btn-light border border-2 rounded-pill text-center py-2 pe-3 ms-1 c-w-300"
+                           type="button">
                             <img src="/static/google_logo.png" height="25" width="25" alt="Google multicolor logo" mb-0>
-                            &nbsp;&nbsp;Link Google Account&nbsp;
+                            &nbsp;Link Google Account&nbsp;
                         </a>
                     </div>
                 {% endif %}
