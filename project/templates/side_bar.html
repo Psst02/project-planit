@@ -27,8 +27,13 @@
         <!-- https://getbootstrap.com/docs/5.0/examples/sidebars/ -->
         <!-- Adaptation guidance by ChatGPT (OpenAI) -->
         <div class="d-flex min-vh-100">
+            <!-- Sidebar toggle button for smaller screens -->
+            <button class="btn btn-dark d-md-none position-fixed m-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle sidebar">
+                    <i class="bi bi-list fs-3"></i>
+          </button>
             <!-- Sidebar -->
-            <nav class="d-flex flex-column bg-dark text-white p-3 side-bar">
+            <nav class="d-flex flex-column bg-dark text-white p-3 side-bar" id="sidebarMenu">
                 <!-- Brand -->
                 <a class="navbar-brand fw-bold brand" href="/">
                 <img src="/static/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="Icon">
