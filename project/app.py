@@ -23,9 +23,12 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
-    
+#app.config["SESSION_TYPE"] = "filesystem"
+#Session(app)
+# Use default Flask session (signed cookies)
+app.config["SESSION_COOKIE_SECURE"] = True     # signed cookies
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"  # Allows OAuth redirects
+
 oauth.init_app(app)  # Sets up Authlib OAuth with Flask
 db_teardown(app)     # Register db teardown
 
