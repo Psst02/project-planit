@@ -2,7 +2,7 @@
 #### Video Demo: https://youtu.be/AHwi7SMMOMw
 #### Description:
 
-**PlanIt!** is a lightweight web application designed to simplify group scheduling through shareable invite links.
+**PlanIt!** is a lightweight web application designed to simplify group scheduling through shareable invite links. [Click me](https://shin02.pythonanywhere.com/) to visit **PlanIt!**
 
 The workflow is simple: the creator defines event details (focus, setting, participant limits, date range, activity categories). Once submitted, the system generates a unique invite link. Invitees can then access the link to respond by selecting preferred dates, suggesting activities, or declining the invitation. The link expires automatically after a week, ensuring the plan won't be procrastinated. Once responses meet the minimum attendance requirement, the system automatically determines the final date and activities. **PlanIt!** is particularly suitable for small groups, social gatherings, or casual event planning, focusing on simplicity and immediacy, valuable in spontaneous social planning.
 
