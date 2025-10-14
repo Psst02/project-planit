@@ -45,10 +45,6 @@
     height: 120px;
 }
 
-.side-bar {
-    width: 300px;
-}
-
 .plan-icon {
     font-size: 4rem;
 }
@@ -57,9 +53,23 @@
     max-width: 200px;
 }
 
+.c-w-300 {
+    width: 300px;
+}
+
 /* Icon toggle guidance by ChatGPT (OpenAI) */
 .bi-caret-up-fill { display: none; }
 .collapsed .bi-bi-caret-up-fill { display: none; }
 .collapsed .bi-caret-down-fill { display: inline; }
 [aria-expanded="true"] .bi-caret-up-fill { display: inline; }
 [aria-expanded="true"] .bi-caret-down-fill { display: none; }
+
+/* Guidance by ChatGPT (OpenAI) */
+/* Sidebar is static on larger devices */
+@media (min-width: 768px) {
+    .offcanvas-md {
+        position: static !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+}
