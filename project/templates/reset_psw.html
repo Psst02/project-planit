@@ -4,22 +4,21 @@
     Password Reset
 {% endblock %}
 
+{% block page_title %}
+    Reset Password
+{% endblock %}
+
 {% block main %}
     <form action="/reset-password" method="post">
         <main class="flex-grow-1 overflow-auto">
-            <!-- Title -->
-            <div class="px-3">
-                <h4 class="fw-bold mb-0">Reset Password</h4>
-            </div>
             <hr>
-
             <!-- Retype password -->
             <div class="col-auto text-start">
                 <label for="old-psw-input" class="form-label mb-1 ms-3"><b>Current Password</b></label>
                 {% if has_password %}
                     <p class="feedback text-start ms-3 mb-1">{{ old_psw_fb | default('') }}</p>
-                    <div class="position-relative w-25 mb-4">
-                        <input autocomplete="off" autofocus class="form-control rounded-pill py-2 ps-3 pe-5 ms-1" name="old-password"
+                    <div class="position-relative mb-4">
+                        <input autocomplete="off" autofocus class="form-control rounded-pill py-2 ps-3 pe-5 ms-1 c-w-300" name="old-password"
                             id="old-psw-input" placeholder="Password" type="password">
                     </div>
                 {% else %}
@@ -34,12 +33,13 @@
             <div class="col-auto text-start">
                 <label for="new-psw-input" class="form-label mb-1 ms-3"><b>New Password</b></label>
                 <p class="feedback text-start ms-3 mb-1">{{ new_psw_fb | default('') }}</p>
-                <div class="position-relative w-25 mb-4">
+                <div class="position-relative
+                mb-4">
                     <!-- New password -->
-                    <input autocomplete="new-password" class="form-control rounded-pill py-2 ps-3 pe-5 ms-1" name="new-password"
+                    <input autocomplete="new-password" class="form-control rounded-pill py-2 ps-3 pe-5 ms-1 c-w-300" name="new-password"
                         id="new-psw-input" placeholder="Password" type="password">
                     <!-- Confirmation -->
-                    <input autocomplete="off" class="form-control rounded-pill py-2 ps-3 pe-5 ms-1 mt-2" name="confirmation"
+                    <input autocomplete="off" class="form-control rounded-pill py-2 ps-3 pe-5 ms-1 mt-2 c-w-300" name="confirmation"
                         placeholder="Confirm Password" type="password">
                 </div>
             </div>
