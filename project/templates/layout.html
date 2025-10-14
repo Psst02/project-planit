@@ -25,55 +25,41 @@
     <body>
         <!-- Adapted from: Bootstrap documentation -->
         <!-- URL: https://getbootstrap.com/docs/5.3/components/navbar/ -->
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <nav class="navbar navbar-dark bg-dark sticky-top">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="navbar-brand fw-bold brand" href="/">
+                <a class="navbar-brand fw-bold brand d-flex align-items-center gap-2" href="/">
                     <img src="/static/favicon-32x32.png" width="30" height="30" class="d-inline-block align-text-top" alt="Icon">
                         PlanIt!
                 </a>
 
-                <!-- Toggler -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                        aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                {% if session["user_id"] %}
+                <!-- Right side -->
+                <ul class="navbar-nav ms-auto mt-2">
+                    <!-- Adapted from: Bootstrap documentation -->
+                    <!-- URL: https://getbootstrap.com/docs/5.3/components/dropdowns/ -->
+                    <li class="nav-item dropdown position-relative">
+                        <!-- Profile dropdown -->
+                        <a class="nav-link dropdown-toggle p-0" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ session['user_photo'] }}" width="35" height="35" class="rounded-circle" alt="Profile Photo">
+                        </a>
 
-                <!-- Nav contents -->
-                <div class="collapse navbar-collapse" id="navbar">
-                    {% if session["user_id"] %}
-                    <!-- Right side -->
-                    <ul class="navbar-nav me-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
-                    </ul>
-
-                    <!-- Left side -->
-                    <ul class="navbar-nav ms-auto mt-2">
-                        <!-- Adapted from: Bootstrap documentation -->
-                        <!-- URL: https://getbootstrap.com/docs/5.3/components/dropdowns/ -->
-                        <li class="nav-item dropdown">
-                            <!-- Profile dropdown -->
-                            <a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ session['user_photo'] }}" width="35" height="35" class="rounded-circle" alt="Profile Photo">
-                            </a>
-
-                            <!-- Dropdown Options -->
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/account-details">Account</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/logout">Log out</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    {% else %}
-                    <!-- Left side -->
-                    <ul class="navbar-nav ms-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                    </ul>
-                    {% endif %}
-                </div>
+                        <!-- Dropdown Options -->
+                        <ul class="dropdown-menu dropdown-menu-end shadow position-absolute" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/account-details">Account</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">Log out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% else %}
+                <!-- Left side -->
+                <ul class="navbar-nav ms-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                </ul>
+                {% endif %}
 
             </div>
         </nav>
