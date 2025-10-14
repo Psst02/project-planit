@@ -26,29 +26,30 @@
         <!-- Adapted from: Bootstrap examples -->
         <!-- https://getbootstrap.com/docs/5.0/examples/sidebars/ -->
         <!-- Adaptation guidance by ChatGPT (OpenAI) -->
-        <div class="d-flex min-vh-100 ">
+        <div class="d-flex min-vh-100">
             <!-- Sidebar -->
-            <nav class="d-none d-md-flex flex-column bg-dark text-white p-3">
-                <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebarMenu"
-                     aria-labelledby="sidebarMenuLabel" style="width: 70%; max-width: 400px;">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title text-white" id="sidebarMenuLabel">PlanIt!</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body d-flex flex-column p-0">
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li class="nav-item"><a href="/" class="nav-link text-white">Dashboard</a></li>
-                            <li class="nav-item"><a href="/account-details" class="nav-link text-white">Account Details</a></li>
-                            <li class="nav-item"><a href="/reset-password" class="nav-link text-white">Reset Password</a></li>
-                        </ul>
-                
-                        <ul class="nav nav-pills flex-column mt-auto p-3">
-                            <hr class="text-white">
-                            <li class="nav-item"><a href="/delete-account" class="nav-link text-danger">Delete Account</a></li>
-                            <li class="nav-item"><a href="/logout" class="nav-link text-white">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <nav class="d-flex flex-column bg-dark text-white p-3 side-bar">
+                <!-- Brand -->
+                <a class="navbar-brand fw-bold brand" href="/">
+                <img src="/static/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="Icon">
+                    PlanIt!
+                </a>
+
+                <!-- Top section -->
+                <hr class="text-white">
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item"><a href="/" class="nav-link text-white">Dashboard</a></li>
+                    <li class="nav-item"><a href="/account-details" class="nav-link text-white">Account Details</a></li>
+                    <li class="nav-item"><a href="/reset-password" class="nav-link text-white">Reset Password</a></li>
+                </ul>
+
+                <!-- Bottom section -->
+                <ul class="nav nav-pills flex-column mt-auto">
+                    <hr class="text-white">
+                    <li class="nav-item"><a href="/delete-account" class="nav-link text-danger">Delete Account</a></li>
+                    <li class="nav-item mt-auto"><a href="/logout" class="nav-link text-white">Log out</a></li>
+                    <hr class="text-white">
+                </ul>
             </nav>
 
 
@@ -61,11 +62,7 @@
                         </div>
                     </header>
                 {% endif %}
-                <!-- Sidebar toggle button for smaller screens -->
-                <button class="btn btn-dark d-md-none position-fixed m-3" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle sidebar">
-                        <i class="bi bi-list fs-3"></i>
-                </button>
+
                 {% block main %}{% endblock %}
             </main>
         </div>
