@@ -12,7 +12,7 @@ from event import event_bp
 
 app = Flask(__name__)
 load_dotenv()
-print("SECRET_KEY =", os.getenv("SECRET_KEY"))
+print("SECRET_KEY =", os.environ.get("SECRET_KEY"))
 
 # Running locally
 if os.environ.get("PYTHONANYWHERE_DOMAIN") is None:
@@ -20,7 +20,7 @@ if os.environ.get("PYTHONANYWHERE_DOMAIN") is None:
     from werkzeug.middleware.proxy_fix import ProxyFix
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = os.environ.get("SECRET_KEY")
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
