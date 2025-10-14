@@ -184,7 +184,7 @@ def create_event():
 
         # Generate invite token (expires after a week)
         invite_token = uuid.uuid4().hex
-        expires_at = date.today() + timedelta(days=1) # Testing - Change to 7 for production
+        expires_at = date.today() + timedelta(days=7) # Testing 1 - Change to 7 for production
 
         # insert invite and get id
         cur.execute("""INSERT INTO invites (event_id, creator_id, token, expires_at)
