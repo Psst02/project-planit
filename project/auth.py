@@ -51,11 +51,9 @@ def google_callback():
     # Flask OpenID Connect Client
     # Exchange auth code for token
     token = oauth.google.authorize_access_token()
-    resp = oauth.google.get('userinfo', token=token)
-    user_info = resp.json()
 
     # Get user info from Google
-    #user_info = token.get("userinfo")
+    user_info = token.get("userinfo")
     username = user_info.get("name")
     email = user_info.get("email")
     photo = user_info.get("picture")
@@ -212,11 +210,9 @@ def google_link_callback():
     # Flask OpenID Connect Client
     # Exchange auth code for token
     token = oauth.google.authorize_access_token()
-    resp = oauth.google.get('userinfo', token=token)
-    user_info = resp.json()
 
     # Get user info from Google
-    #user_info = token.get("userinfo")
+    user_info = token.get("userinfo")
     email = user_info.get("email")
 
     # Ensure email isn't already in use
