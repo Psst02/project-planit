@@ -24,37 +24,43 @@
 
     <body>
         <!-- Adapted from: Bootstrap examples -->
-        <!-- https://getbootstrap.com/docs/5.0/examples/sidebars/ -->
+        <!-- URL: https://getbootstrap.com/docs/5.0/examples/sidebars/ -->
+        <!-- URL: https://getbootstrap.com/docs/5.3/components/offcanvas/ -->
         <!-- Adaptation guidance by ChatGPT (OpenAI) -->
-        <div class="d-flex min-vh-100">
+        <div class="d-flex">
             <!-- Sidebar -->
-            <nav class="d-flex flex-column bg-dark text-white p-3 side-bar">
+            <nav class="offcanvas offcanvas-start offcanvas-md bg-dark text-white d-flex flex-column flex-md-column vh-100 p-3 c-w-300"
+                 tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <!-- Brand -->
-                <a class="navbar-brand fw-bold brand" href="/">
-                <img src="/static/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="Icon">
-                    PlanIt!
-                </a>
+                <div class="offcanvas-header d-flex align-items-center p-0">
+                    <a class="navbar-brand fw-bold brand d-flex align-items-center gap-2" href="/">
+                    <img src="/static/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="Icon">
+                        PlanIt!
+                    </a>
+                </div>
 
-                <!-- Top section -->
-                <hr class="text-white">
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item"><a href="/" class="nav-link text-white">Dashboard</a></li>
-                    <li class="nav-item"><a href="/account-details" class="nav-link text-white">Account Details</a></li>
-                    <li class="nav-item"><a href="/reset-password" class="nav-link text-white">Reset Password</a></li>
-                </ul>
+                <div class="offcanvas-body d-flex flex-column flex-fill overflow-y-auto">
+                    <!-- Top section -->
+                    <hr class="text-white">
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item"><a href="/" class="nav-link text-white">Dashboard</a></li>
+                        <li class="nav-item"><a href="/account-details" class="nav-link text-white">Account Details</a></li>
+                        <li class="nav-item"><a href="/reset-password" class="nav-link text-white">Reset Password</a></li>
+                    </ul>
 
-                <!-- Bottom section -->
-                <ul class="nav nav-pills flex-column mt-auto">
-                    <hr class="text-white">
-                    <li class="nav-item"><a href="/delete-account" class="nav-link text-danger">Delete Account</a></li>
-                    <li class="nav-item mt-auto"><a href="/logout" class="nav-link text-white">Log out</a></li>
-                    <hr class="text-white">
-                </ul>
+                    <!-- Bottom section -->
+                    <ul class="nav nav-pills flex-column mt-auto">
+                        <hr class="text-white">
+                        <li class="nav-item"><a href="/delete-account" class="nav-link text-danger">Delete Account</a></li>
+                        <li class="nav-item mt-auto"><a href="/logout" class="nav-link text-white">Log out</a></li>
+                        <hr class="text-white">
+                    </ul>
+                </div>
             </nav>
 
 
             <!-- Main content -->
-            <main class="flex-grow-1 p-4 overflow-auto">
+            <main class="flex-grow-1 p-4 overflow-auto ms-auto">
                 {% if get_flashed_messages() %}
                     <header>
                         <div class="alert alert-primary mb-2 text-center" role="alert">
@@ -62,8 +68,19 @@
                         </div>
                     </header>
                 {% endif %}
+                <!-- Toggle button and title -->
+                <div class="d-flex align-items-center">
+                    <!-- Sidebar toggle for small screens -->
+                    <button class="btn btn-light me-3 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                            aria-controls="offcanvasExample" aria-label="Toggle sidebar"><i class="bi bi-list fs-5"></i>
+                    </button>
+                    <!-- Page title -->
+                    <h4 class="m-0 fw-bold">{% block page_title %}{% endblock %}</h4>
+                </div>
 
-                {% block main %}{% endblock %}
+                <!-- Actual page content -->
+                {% block main %}
+                {% endblock %}
             </main>
         </div>
     </body>
