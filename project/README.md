@@ -4,11 +4,11 @@
 
 **PlanIt!** is a lightweight web application designed to simplify group scheduling through shareable invite links.
 
-The workflow is simple: the creator defines event details (focus, setting, participant limits, date range, activity categories). Once submitted, the system generates a unique invite link. Invitees can then access the link to respond by selecting preferred dates, suggesting activities, or declining the invitation. The link expires automatically after a week, ensuring the plan won't be procrastinated. Once responses meet the minimum attendance requirement, the system automatically determines the final date and activities. Users don't get detailed customization but there **PlanIt!** is particularly suitable for small groups, social gatherings, or casual event planning. Focusing on simplicity and immediacy, which is particularly valuable in spontaneous social planning.
+The workflow is simple: the creator defines event details (focus, setting, participant limits, date range, activity categories). Once submitted, the system generates a unique invite link. Invitees can then access the link to respond by selecting preferred dates, suggesting activities, or declining the invitation. The link expires automatically after a week, ensuring the plan won't be procrastinated. Once responses meet the minimum attendance requirement, the system automatically determines the final date and activities. **PlanIt!** is particularly suitable for small groups, social gatherings, or casual event planning, focusing on simplicity and immediacy, valuable in spontaneous social planning.
 
 #### Acknowledgements:
 
-This project was completed as part of Harvard’s [CS50x](https://pll.harvard.edu/course/cs50-introduction-computer-science) course. Duck mascot is made using [Canva](https://www.canva.com/) and used as a tribute to the CS50's duck debugger. Code and solutions were adapted from multiple sources including:
+This project was completed as part of Harvard’s [CS50x](https://pll.harvard.edu/course/cs50-introduction-computer-science) course. Duck mascot is made using [Canva](https://www.canva.com/) and is a tribute to the CS50's duck debugger. Code and solutions were adapted from multiple sources including:
 - [Stack Overflow](https://stackoverflow.com/)
 - [GeeksforGeeks](https://www.geeksforgeeks.org/)
 - [Reddit](https://www.reddit.com/)
@@ -24,13 +24,13 @@ Additional guidance came from YouTube tutorials, documentation examples, and AI-
 - Front-end: Jinja templates with Bootstrap
 - Session Management: Flask-Session
 
-JavaScript is employed to enhance user interaction and front-end responsiveness, including form validation and dynamic updates of the user interface. **PlanIt!** is hosted on PythonAnywhere, a stable and accessible deployment environment simple enough for beginners. [Click me]() to visit **PlanIt!**
+JavaScript is employed to enhance user interaction and front-end responsiveness, including form validation and dynamic updates of the user interface. **PlanIt!** is hosted on PythonAnywhere, a stable and accessible deployment environment simple enough for beginners. [Click me](https://shin02.pythonanywhere.com/) to visit **PlanIt!**
 
 #### Design Decisions:
 
 Bootstrap utilities were used extensively to minimize custom CSS, keeping the interface consistent and maintainable. The Flask framework was chosen for its simplicity and familiarity from the CS50 problem sets, providing a clear structure for routing, sessions, and templates. Argon2 (argon2-cffi) was selected over Flask’s default Werkzeug hashing for stronger password security while Werkzeug supports essential Flask utilities for secure and efficient request handling.
 
-One major design shift was replacing the friend system with link-based sharing, making the app lighter and more casual. A friend system felt unnecessarily complex for a small-scale planner. Another notable change involved response viewing. Instead of downloadable summaries (.pdf), participants can view responses instantly through the interface, which better fits spontaneous social planning. There was also a dilemma about including a poll voting feature for deciding activities. Although allowing creators to toggle between automated decisions and polls seemed appealing, potential conflicts in results made the process more complicated. To maintain simplicity and efficiency, the feature was ultimately removed.
+One major design shift was replacing the friend system with link-based sharing, making the app lighter and more casual. A friend system felt unnecessarily complex for a small-scale planner. Another notable change involved response viewing. Instead of downloadable summaries (.pdf), participants can view responses instantly through the interface, which is more convenient. There was also a dilemma about including a poll voting feature for deciding activities. Although allowing creators to toggle between automated decisions and polls seemed appealing, potential conflicts in results made the process more complicated. To maintain simplicity and efficiency, the feature was ultimately removed.
 
 The project began with CS50 finance problem set files: all logic was managed in `app.py` and `helpers.py` while data was stored in the CS50 SQL library. In the later stages of the development, the database was adapted to sqlite3 to remove hosting dependencies. Then, the functions inside `app.py` were reorganized into blueprints: `acc.py`, `auth.py`, `event.py`, improving clarity and maintainability. At this point, Google OAuth integration was added as a stretch goal using Authlib for the Google OAuth 2.0, aligned with OpenID Connect (OIDC). File paths were also made dynamic to prevent environment-specific errors caused by hardcoding.
 
@@ -42,7 +42,7 @@ The project began with CS50 finance problem set files: all logic was managed in 
   acc.py        → account management routes & logic (blueprint)
   event.py      → event creation, response, and scheduling logic (blueprint)
   templates/    → HTML templates
-  static/       → CSS, JS, images
+  static/       → CSS, images
   planit.db     → SQLite database
 ```
 
