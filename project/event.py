@@ -233,7 +233,7 @@ def respond_event(token):
     event = cur.fetchone()
     # Ensure event exists
     if not event:
-        return show_error("Event not found.")
+        return show_error("Event/Creator not found.")
 
     status = event["status_id"]
     # Handle confirmed/cancelled events
