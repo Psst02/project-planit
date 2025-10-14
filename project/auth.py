@@ -20,8 +20,8 @@ oauth = OAuth()
 # Adapted from: GeeksforGeeks
 # URL: https://www.geeksforgeeks.org/python/oauth-authentication-with-flask-connect-to-google-twitter-and-facebook/
 # Create OAuth for Google
-GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
-GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 
 # Auto-fetch all the URLs (authorize, token, userinfo) using OpenID metadata
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
