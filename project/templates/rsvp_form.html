@@ -12,12 +12,12 @@
         <p class="m-0">Between {{ event.start_date }} and {{ event.end_date }}</p>
 
         <!-- Focus -->
-        <div class="col-auto text-start m-2 mt-3">
+        <div class="col-auto text-start mb-3 mt-3">
             <input class="form-control mx-auto w-auto rounded-pill py-2 pr-3 selector" value="{{ event.focus_label }}"
                 type="text" readonly>
         </div>
         <!-- Setting -->
-        <div class="col-auto text-start m-2">
+        <div class="col-auto text-start mb-4">
             <input class="form-control mx-auto w-auto rounded-pill py-2 pr-3 selector" value="{{ event.setting_label }}"
                 type="text" readonly>
         </div>
@@ -44,16 +44,16 @@
 
         <!-- Hidden section -->
         <div class="collapse" id="collapsible-section">
-            <div class="row g-3 align-items-left text-start">
+            <div class="row align-items-left text-start">
                 <!-- Date pickers -->
                 <p class="mb-2 ms-2"><b>Pick up to 3 dates:</b></p>
-                <small class="m-0 ms-2">Between {{ event.start_date }} and {{ event.end_date }}</small>
-                <div class="d-flex align-items-center col-auto" id="dp-wrapper">
+                <small class="mb-3 ms-2">Between {{ event.start_date }} and {{ event.end_date }}</small>
+                <div class="d-flex flex-wrap d-flex justify-content-start align-items-center col-auto mb-3 gap-3" id="dp-wrapper">
                     <!-- Date picker adapted from: Codeply -->
                     <!-- URL: https://codeply.com/p/zU0EWDmIfn -->
                     <!-- Created by skelly -->
-                    <div class="date-picker-ref me-3">
-                        <div class="input-group form-control rounded-pill overflow-hidden py-1 px-3 dp-div">
+                    <div class="date-picker-ref ms-0">
+                        <div class="input-group rounded-pill border border-1 overflow-hidden py-1 px-4 dp-div c-w-200">
                             <input
                                 class="form-control border-0 outline-erase"
                                 type="date"
@@ -70,11 +70,11 @@
                 <hr>
 
                 <!-- Activity Table -->
-                <div class="col-auto text-start">
+                <div class="col-auto text-start mb-4">
                     <p class="mb-2 ms-2"><b>Activity suggestions:</b></p>
-                    <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-wrap gap-3 d-flex justify-content-start col-auto">
                         {% for topic in topics %}
-                            <table class="table table-bordered m-0 c-w-200" data-index="0">
+                            <table class="table table-bordered m-0 flex-grow-0 flex-shrink-0 c-w-200">
                                 <thead>
                                     <tr>
                                         <td><input type="text" class="form-control" name="topic" value="{{ topic.topic }}" readonly></td>
