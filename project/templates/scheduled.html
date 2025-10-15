@@ -10,23 +10,23 @@
     <p class="m-0">See you on "{{ event.chosen_date }}" 🥳</p>
 
     <!-- Focus -->
-    <div class="col-auto text-start m-2 mt-3">
+    <div class="col-auto text-start mb-3 mt-3">
         <input class="form-control mx-auto w-auto rounded-pill py-2 pr-3 selector" value="{{ event.focus_label }}"
                 type="text" readonly>
     </div>
     <!-- Setting -->
-    <div class="col-auto text-start m-2">
+    <div class="col-auto text-start mb-4">
         <input class="form-control mx-auto w-auto rounded-pill py-2 pr-3 selector" value="{{ event.setting_label }}"
                 type="text" readonly>
     </div>
     <hr>
 
     <!-- Activity table -->
-    <div class="col-auto text-start">
+    <div class="col-auto text-start mb-4">
         <p class="mb-2 ms-2"><b>Activities:</b></p>
-        <div class="d-flex flex-wrap" id="activity-tables">
+        <div class="d-flex flex-wrap gap-3 d-flex justify-content-start col-auto">
             {% for activity in activities %}
-                <table class="table table-bordered m-0" style="max-width:200px;">
+                <table class="table table-bordered m-0 flex-grow-0 flex-shrink-0 c-w-200">
                     <thead>
                         <tr>
                             <td><input type="text" class="form-control" value="{{ activity.topic_label }}" readonly></td>
@@ -60,7 +60,7 @@
 
         <!-- Collapsible attendees list -->
         <div class="collapse" id="attendees-collapse">
-            <div class="d-flex flex-column gap-2">
+            <div class="d-flex flex-column gap-3 mb-4">
                 {% for a in attendees %}
                 <div class="d-flex align-items-center justify-content-between rounded-pill px-3 py-2 bg-light selector">
                     <div class="d-flex align-items-center">
