@@ -7,7 +7,7 @@
 {% block main %}
     <!-- Invitation -->
     <h5>Thank you for your response! <i class="bi bi-patch-check-fill text-primary"></i></h5>
-    <p class="m-0">
+    <p class="m-0 mb-4">
         {% if res == 1 %}
             You've confirmed the invite.😎
         {% elif res == 0 %}
@@ -16,32 +16,27 @@
     </p>
 
     <!-- Response Details -->
-    <div class="row g-3 align-items-left text-start">
+    <div class="row align-items-left text-start">
         <p class="mb-2 ms-2"><b>Pick up to 3 dates:</b></p>
-        <small class="m-0 ms-2">Between {{ event.start_date }} and {{ event.end_date }}</small>
+        <small class="mb-3 ms-2">Between {{ event.start_date }} and {{ event.end_date }}</small>
+        <div class="d-flex flex-wrap d-flex justify-content-start align-items-center col-auto mb-4 gap-3">
         {% for date in dates %}
-            <div class="d-flex align-items-center col-auto">
-                <div class="date-picker-ref me-3">
-                    <div class="input-group form-control rounded-pill overflow-hidden py-1 px-3 dp-div">
-                        <input
-                            type="date"
-                            class="form-control border-0 outline-erase"
-                            value="{{ date }}"
-                            readonly/>
-                    </div>
-                </div>
+            <div>
+                <input type="date" class="rounded-pill border border-1 overflow-hidden py-2 px-5 pr-2 dp-div c-w-200 text-center"
+                       value="{{ date }}" readonly/>
             </div>
         {% else %}
             <p class="text-muted ms-2">No suggestions available.</p>
         {% endfor %}
+        </div>
         <hr>
 
         <!-- Activity Table -->
-        <div class="col-auto text-start">
+        <div class="col-auto text-start mb-4">
             <p class="mb-2 ms-2"><b>Activity suggestions:</b></p>
-            <div class="d-flex flex-wrap">
+            <div class="d-flex flex-wrap gap-3 d-flex justify-content-start col-auto">
                 {% for a in activities %}
-                    <table class="table table-bordered m-0" style="max-width:200px;">
+                    <table class="table table-bordered m-0 flex-grow-0 flex-shrink-0 c-w-200">
                         <thead>
                             <tr>
                                 <td><input type="text" class="form-control" value="{{ a.topic }}" readonly></td>
