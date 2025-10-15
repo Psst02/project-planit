@@ -36,7 +36,7 @@
         <!-- Start Date -->
         <div class="col-auto text-start">
             <label for="start-d" class="form-label mb-2 ms-2"><b>Start date:</b></label>
-            <div class="input-group form-control rounded-pill overflow-hidden py-1 px-3 dp-div">
+            <div class="input-group rounded-pill border border-1 overflow-hidden py-1 px-4 dp-div c-w-200">
                 <input
                     id="start-d"
                     class="form-control border-0 outline-erase"
@@ -49,7 +49,7 @@
         <!-- End Date -->
         <div class="col-auto text-start">
             <label for="end-d" class="form-label mb-2 ms-2"><b>End date:</b></label>
-            <div class="input-group form-control rounded-pill overflow-hidden py-1 px-3 dp-div">
+            <div class="input-group rounded-pill border border-1 overflow-hidden py-1 px-4 dp-div c-w-200">
                 <input
                     id="end-d"
                     class="form-control border-0 outline-erase"
@@ -62,9 +62,9 @@
         <!-- Activity table -->
         <div class="col-auto text-start">
             <p class="mb-2 ms-2"><b>Activity outline:</b></p>
-            <div id="tables-wrapper" class="d-flex align-items-center col-auto">
+            <div id="tables-wrapper" class="d-flex flex-wrap gap-3 d-flex justify-content-start align-items-center col-auto">
                 <!-- First Table -->
-                <table class="table table-bordered m-0 activity-table c-w-200" data-index="0">
+                <table class="table table-bordered m-0 flex-grow-0 flex-shrink-0 activity-table c-w-200" data-index="0">
                     <thead>
                         <tr>
                             <td><input type="text" class="form-control" name="topic" placeholder="Activity"></td>
@@ -81,7 +81,7 @@
                 </table>
 
                 <!-- Plus Button -->
-                <button id="add-col-btn" type="button" class="btn btn-secondary rounded-circle ms-4 py-2">
+                <button id="add-col-btn" type="button" class="btn btn-secondary rounded-circle align-self-center ms-2 py-2">
                     <i class="bi bi-plus-lg"></i>
                 </button>
             </div>
@@ -92,7 +92,7 @@
         <!-- Minimum Attendees -->
         <div class="col-auto text-start">
             <label for="participants-min" class="form-label mb-2 ms-2"><b>Minimum attendees:</b></label>
-            <input class="form-control mx-auto w-auto rounded-pill py-2 px-3" name="min-participants"
+            <input class="form-control mx-auto w-auto rounded-pill py-2 px-4 c-w-200" name="min-participants"
                    placeholder="Type a number" type="number" id="participants-min">
             <p class="feedback mt-2 mb-0">{{ limit_fb | default('') }}</p>
         </div>
@@ -100,7 +100,7 @@
         <!-- Expected participants -->
         <div class="col-auto text-start">
             <label for="participants-max" class="form-label mb-2 ms-2"><b>Total participants:</b></label>
-            <input class="form-control mx-auto w-auto rounded-pill py-2 px-3" name="max-participants"
+            <input class="form-control mx-auto w-auto rounded-pill py-2 px-4 c-w-200" name="max-participants"
                    placeholder="Type a number" type="number" id="participants-max">
             <p class="feedback mt-2 mb-0">{{ max_fb | default('') }}</p>
         </div>
