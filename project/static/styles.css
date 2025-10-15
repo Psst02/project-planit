@@ -50,7 +50,7 @@
 }
 
 .c-w-200 {
-    max-width: 200px;
+    max-width: 200px !important;
 }
 
 .c-w-300 {
