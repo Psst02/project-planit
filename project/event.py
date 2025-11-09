@@ -99,40 +99,40 @@ def create_event():
     settings = [row["setting_label"] for row in cur.fetchall()]
 
     if request.method == "POST":
+        
+        focus_fb = setting_fb = date_fb = table_fb = limit_fb = max_fb = ""
         # ---------------- Section 1 -------------------
         focus = request.form.get("focus")
         setting = request.form.get("setting")
 
         # Ensure selected options exist
         if focus not in focuses:
-            return render_template("create_event.html", focuses=focuses, settings=settings, focus_fb="invalid option")
+            focus_fb = "invalid option"
         elif setting not in settings:
-            return render_template("create_event.html", focuses=focuses, settings=settings, setting_fb="invalid option")
+            setting_fb = "invalid option"
 
         # ---------------- Section 2 -------------------
+        today = date.today()
         date1 = request.form.get("start-date")
         date2 = request.form.get("end-date")
 
-        # Validate date format
+        # Validate date format/range
         try:
             start_date = date.fromisoformat(date1)
             end_date = date.fromisoformat(date2)
+            if start_date < today or end_date <= today or end_date <= start_date:
+                date_fb = "invalid range"
         except ValueError:
-            return render_template("create_event.html", focuses=focuses, settings=settings, date_fb="invalid date")
-
-        # Validate date range
-        today = date.today()
-        if start_date < today or end_date <= today or end_date <= start_date:
-            return render_template("create_event.html", focuses=focuses, settings=settings, date_fb="invalid range")
+            date_fb = "invalid date"
 
         # ---------------- Section 3 -------------------
-        topics = [t.strip() for t in request.form.getlist("topic") if t.strip()] # Add only non-empty to list
+        topics = [t.strip() for t in request.form.getlist("topic") if t.strip()]  # Add only non-empty to list
 
         # Ensure at least 1 but no more than 5 topics
         if not topics:
-            return render_template("create_event.html", focuses=focuses, settings=settings, table_fb="min 1 activity")
+            table_fb = "min 1 activity"
         elif len(topics) > 5:
-            return render_template("create_event.html", focuses=focuses, settings=settings, table_fb="max 5 activities")
+            table_fb = "max 5 activities"
 
         topic_ideas = {}
         for i, topic in enumerate(topics):
@@ -140,11 +140,10 @@ def create_event():
             # URL: https://www.reddit.com/r/learnpython/comments/1gzhfno/whats_better_to_use_fstring_or_format/
             # Answered by MiniMages
             idea_list = request.form.getlist(f"ideas[{i}][]")
-            filtered = [idea.strip() for idea in idea_list if idea.strip()][:2] # Accept only 2 per topic, Discard empty if any
-
+            filtered = [idea.strip() for idea in idea_list if idea.strip()][:2]  # Accept only 2 per topic, Discard empty if any
             # Ensure 1 idea per topic before adding
-            if len(filtered) == 0:
-                return render_template("create_event.html", focuses=focuses, settings=settings, table_fb="min 1 option per activity")
+            if not filtered:
+                table_fb = "min 1 option per activity"
             topic_ideas[i] = filtered
 
         # ---------------- Section 4 -------------------
@@ -153,17 +152,32 @@ def create_event():
             pass_limit = int(request.form.get("min-participants"))
             if pass_limit < 1:
                 raise ValueError
-        except ValueError:
-            return render_template("create_event.html", focuses=focuses, settings=settings, limit_fb="invalid number")
+        except (ValueError, TypeError):
+            limit_fb = "invalid number"
 
         # Ensure it is positive integer >= pass limit
         try:
             expected_total = int(request.form.get("max-participants"))
             if expected_total < pass_limit:
                 raise ValueError
-        except ValueError:
-            return render_template("create_event.html", focuses=focuses, settings=settings, max_fb="invalid number")
+        except (ValueError, TypeError):
+            max_fb = "invalid number"
 
+        # ---------------- Early return if any feedback exists -------------------
+        if any([focus_fb, setting_fb, date_fb, table_fb, limit_fb, max_fb]):
+            return render_template("create_event.html",
+                focuses=focuses,
+                settings=settings,
+                focus_fb=focus_fb,
+                setting_fb=setting_fb,
+                date_fb=date_fb,
+                table_fb=table_fb,
+                limit_fb=limit_fb,
+                max_fb=max_fb,
+                topics=topics,
+                topic_ideas=topic_ideas
+            )
+        
         # ---------------- DB queries -------------------
         # Insert event and get id
         cur.execute("""
@@ -277,35 +291,47 @@ def respond_event(token):
 
         # Confirm invite
         elif "confirm" in request.form:
-            # Get responses and discard blanks in the list
-            dates = [d.strip() for d in request.form.getlist("date") if d.strip()]
-
-            # Ensure min 1 date
-            if not dates:
-                return render_template("rsvp_form.html", event=event, topics=topics, token=token, date_fb="pick at least 1 date")
-
+            date_fb = ""
+            dates = [d.strip() for d in request.form.getlist("date") if d.strip()]  # Get responses and discard blanks in the list
             start_date = date.fromisoformat(event["start_date"])
             end_date = date.fromisoformat(event["end_date"])
+            
+            # Ensure min 1 date
+            if not dates:
+                date_fb = "pick at least 1 date"
 
-            # Validate each input date
-            for input_date in dates:
+            valid_dates = []
+            for input_date_str in dates:
                 try:
-                    input_date = date.fromisoformat(input_date)
+                    input_date = date.fromisoformat(input_date_str)
+                    # Ensure date is within appropriate range
+                    if not start_date <= input_date <= end_date:
+                        date_fb = "out of range"
+                    elif input_date == date.today():
+                        date_fb = "date too soon"
+                    else:
+                        valid_dates.append(input_date)
                 except ValueError:
-                    return render_template("rsvp_form.html", event=event, topics=topics, token=token, date_fb="invalid date(s)")
+                    date_fb = "invalid date(s)"
 
-                # Ensure date is within appropriate range
-                if not start_date <= input_date <= end_date:
-                    return render_template("rsvp_form.html", event=event, topics=topics, token=token, date_fb="out of range")
-
-                elif input_date == date.today():
-                    return render_template("rsvp_form.html", event=event, topics=topics, token=token, date_fb="date too soon")
-
-                # Only add non-duplicate dates
-                cur.execute("""INSERT INTO event_dates (event_id, user_id, date) SELECT ?, ?, ? WHERE NOT EXISTS (
-                                   SELECT * FROM event_dates
-                                   WHERE event_id = ? AND user_id = ? AND date = ?
-                               )""", (event_id, user_id, input_date, event_id, user_id, input_date))
+            # Early return if there’s feedback
+            if date_fb:
+                return render_template("rsvp_form.html",
+                    event=event,
+                    topics=topics,
+                    token=token,
+                    date_fb=date_fb
+                )
+                    
+            for input_date in valid_dates:
+                cur.execute(
+                    """INSERT INTO event_dates (event_id, user_id, date)
+                       SELECT ?, ?, ? WHERE NOT EXISTS (
+                           SELECT 1 FROM event_dates
+                           WHERE event_id = ? AND user_id = ? AND date = ?
+                       )""",
+                    (event_id, user_id, input_date, event_id, user_id, input_date)
+                )
 
             # Insert non-empty ideas
             for topic in topics:
