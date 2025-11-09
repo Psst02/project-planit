@@ -99,8 +99,7 @@ def signup():
     """Register user via username"""
 
     if request.method == "POST":
-        username_fb = ""
-        password_fb = "" 
+        username_fb = password_fb = "" 
         username = (request.form.get("username") or "").strip()
         password = (request.form.get("password") or "").strip()
 
@@ -112,8 +111,8 @@ def signup():
             
         if username_fb != "" or password_fb != "":
             return render_template("signup.html", username_fb=username_fb, password_fb=password_fb)
+        
         hashed = ph.hash(password)
-
         db = get_db()
         cur = db.cursor()
 
@@ -153,8 +152,7 @@ def login():
         invite_token = session.pop("invite_token", None)
         session.clear()
 
-        username_fb = ""
-        password_fb = ""
+        username_fb = password_fb = ""
         username = (request.form.get("username") or "").strip()
         password = (request.form.get("password") or "").strip()
 
