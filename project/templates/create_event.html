@@ -99,12 +99,16 @@
         <!-- Minimum Attendees -->
         <div class="col-auto text-start">
             <label for="participants-min" class="form-label mb-2 ms-2">
-                <span>
-                    <i class="bi bi-info-circle-fill text-secondary" 
-                       title="How many do you expect to see at least? (include self)" 
-                       aria-label="Hover for extra info"></i>
+                <b>Minimum attendees</b>
+                <span 
+                    tabindex="0" 
+                    class="text-secondary" 
+                    data-bs-toggle="popover" 
+                    data-bs-trigger="focus" 
+                    data-bs-placement="top" 
+                    data-bs-content="How many do you expect to see at least? (include self)">
+                    <i class="bi bi-info-circle-fill text-secondary"></i>
                 </span>
-                <b>Minimum attendees:</b>
             </label>
             <input class="form-control mx-auto w-auto rounded-pill py-2 px-4 c-w-200" name="min-participants"
                    placeholder="Type a number" type="number" id="participants-min">
@@ -119,7 +123,16 @@
                        title="How many are you inviting? (include self)" 
                        aria-label="Hover for extra info"></i>
                 </span>
-                <b>Total participants:</b>
+                <b>Total participants</b>
+                <span 
+                    tabindex="0" 
+                    class="text-secondary" 
+                    data-bs-toggle="popover" 
+                    data-bs-trigger="focus" 
+                    data-bs-placement="top" 
+                    data-bs-content="How many are you inviting? (include self)">
+                    <i class="bi bi-info-circle-fill text-secondary"></i>
+                </span>
             </label>
             <input class="form-control mx-auto w-auto rounded-pill py-2 px-4 c-w-200" name="max-participants"
                    placeholder="Type a number" type="number" id="participants-max">
@@ -177,6 +190,12 @@
             const maxTables = 5;
             const minTables = 1;
 
+            // Tooltips
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+            
             addBtn.addEventListener("click", () => {
                 // Set clone limit and alert user
                 const currentTables = wrapper.querySelectorAll(".activity-table").length;
@@ -220,7 +239,7 @@
                 const lastTable = wrapper.querySelectorAll(".activity-table")[currentTables - 1];
                 lastTable.remove();
             });
-
+            
             // Show modal only when link is generated
             {% if invite_link %}
                 // JS adapted from: Bootstrap documentation
