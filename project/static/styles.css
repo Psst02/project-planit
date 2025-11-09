@@ -57,6 +57,10 @@
     width: 300px;
 }
 
+#card-wrapper {
+    gap: 20px; /* fixed pixel gap */
+}
+
 /* Icon toggle guidance by ChatGPT (OpenAI) */
 .bi-caret-up-fill { display: none; }
 .collapsed .bi-bi-caret-up-fill { display: none; }
