@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from helpers import get_db, removal_check
+from helpers import get_db, close_db, removal_check
 
 def remove_events():
 
@@ -20,7 +20,7 @@ def remove_events():
         if expires_at <= date.today():
             removal_check(row["event_id"])
 
-    db.close()
+    close_db()
 
 if __name__ == "__main__":
     remove_events()
