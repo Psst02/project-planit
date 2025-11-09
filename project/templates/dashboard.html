@@ -72,45 +72,41 @@
                                 <!-- URL: https://getbootstrap.com/docs/5.0/utilities/position/ -->
                                 <div class="position-absolute end-0 bottom-0 z-3">
                                     {% if session["user_id"] == plan.creator_id %}
-                                        <span 
-                                            tabindex="0" 
-                                            class="text-secondary" 
-                                            data-bs-toggle="popover" 
-                                            data-bs-trigger="focus" 
-                                            data-bs-placement="top" 
-                                            data-bs-content="Creator">
-                                            <i class="bi bi-patch-question-fill text-info fs-3"></i>
+                                        <span>
+                                            <i class="bi bi-patch-question-fill text-info fs-3" 
+                                               data-bs-toggle="popover"
+                                               data-bs-trigger="hover focus"
+                                               data-bs-content="Creator"
+                                               data-bs-placement="top"
+                                               aria-label="Info"></i>
                                         </span>
                                     {% else %}
                                         {% if plan.user_res is none %}
-                                            <span 
-                                                tabindex="0" 
-                                                class="text-secondary" 
-                                                data-bs-toggle="popover" 
-                                                data-bs-trigger="focus" 
-                                                data-bs-placement="top" 
-                                                data-bs-content="Not responded">
-                                                <i class="bi bi-patch-exclamation-fill text-warning fs-3"></i>
+                                            <span>
+                                                <i class="bi bi-patch-exclamation-fill text-warning fs-3" 
+                                                   data-bs-toggle="popover"
+                                                   data-bs-trigger="hover focus"
+                                                   data-bs-content="Not responded"
+                                                   data-bs-placement="top"
+                                                   aria-label="Info"></i>
                                             </span>
                                         {% elif plan.user_res == 1 %}
-                                            <span 
-                                                tabindex="0" 
-                                                class="text-secondary" 
-                                                data-bs-toggle="popover" 
-                                                data-bs-trigger="focus" 
-                                                data-bs-placement="top" 
-                                                data-bs-content="Confirmed">
-                                                <i class="bi bi-patch-check-fill text-primary fs-3"></i>
+                                            <span>
+                                                <i class="bi bi-patch-check-fill text-primary fs-3" 
+                                                   data-bs-toggle="popover"
+                                                   data-bs-trigger="hover focus"
+                                                   data-bs-content="Confirmed"
+                                                   data-bs-placement="top"
+                                                   aria-label="Info"></i>
                                             </span>
                                         {% else %}
-                                            <span 
-                                                tabindex="0" 
-                                                class="text-secondary" 
-                                                data-bs-toggle="popover" 
-                                                data-bs-trigger="focus" 
-                                                data-bs-placement="top" 
-                                                data-bs-content="Declined">
-                                                <i class="bi bi-patch-minus-fill text-secondary fs-3"></i>
+                                            <span>
+                                                <i class="bi bi-patch-minus-fill text-secondary fs-3" 
+                                                   data-bs-toggle="popover"
+                                                   data-bs-trigger="hover focus"
+                                                   data-bs-content="Declined"
+                                                   data-bs-placement="top"
+                                                   aria-label="Info"></i>
                                             </span>
                                         {% endif %}
                                     {% endif %}
