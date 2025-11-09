@@ -89,6 +89,7 @@
 
     #btn-div {
         flex-direction: row;        /* buttons aligned in a row */
+        width: 200px;
         justify-content: center !important;
         margin-top: 0.5rem;         /* small spacing below table */
     }
