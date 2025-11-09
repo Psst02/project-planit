@@ -174,7 +174,7 @@ def common_check(event_id, confirm, pass_limit, action="cancel"):
 
 
 def removal_check(event_id):
-    """Check if plan should be confirmed/removed at/after expiry (Dashboard check)"""
+    """Check if plan should be confirmed/removed at/after expiry (Scheduled Task)"""
 
     db = get_db()
     cur = db.cursor()
