@@ -107,7 +107,7 @@ def signup():
         # Ensure inputs are filled
         if not username:
             username_fb = "required field"
-        elif not password:
+        if not password:
             password_fb = "required field"
             
         if username_fb != "" or password_fb != "":
@@ -161,7 +161,7 @@ def login():
         # Ensure inputs are filled
         if not username:
             username_fb = "required field"
-        elif not password:
+        if not password:
             password_fb = "required field"
 
         if username_fb != "" or password_fb != "":
