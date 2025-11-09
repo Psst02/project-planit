@@ -65,6 +65,18 @@
                     <button id="add-btn" type="button" class="btn btn-secondary rounded-circle py-2">
                         <i class="bi bi-plus-lg"></i>
                     </button>
+                    <!-- Buttons -->
+                    <div class="d-flex align-items-center gap-3 mt-2 mt-md-0" id="btn-div">
+                        <!-- Plus Button -->
+                        <button id="add-btn" type="button" class="btn btn-secondary btn-sm rounded-circle align-self-center">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
+                        <!-- Remove Button -->
+                        <button id="rmv-btn" type="button" class="btn btn-danger btn-sm rounded-circle align-self-center ms-2">
+                            <i class="bi bi-dash-lg"></i>
+                        </button>
+                    </div>
+                    
                 </div>
                 <p class="feedback mt-2 mb-0 ms-3">{{ date_fb | default('') }}</p>
                 <hr>
