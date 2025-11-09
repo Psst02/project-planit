@@ -81,15 +81,28 @@
         margin-top: 0;
         margin-left: 0.5rem;    /* small space between table and buttons */
     }
+    .c-btn-div {
+        margin-top: 0;
+        margin-left: 0.5rem;    /* small space between table and buttons */
+    }
 }
 
 @media (max-width: 520px) {
     #tables-wrapper{
         width: 200px;
     }
-
     #btn-div {
         flex-direction: row;        /* buttons aligned in a row */
+        width: 100%;
+        justify-content: center !important;
+        margin-top: 0.5rem;         /* small spacing below table */
+        margin-left: 0;
+    }
+
+    #dp-wrapper {
+        width: 200px;
+    }
+    .c-btn-div {
         width: 100%;
         justify-content: center !important;
         margin-top: 0.5rem;         /* small spacing below table */
