@@ -98,7 +98,14 @@
 
         <!-- Minimum Attendees -->
         <div class="col-auto text-start">
-            <label for="participants-min" class="form-label mb-2 ms-2"><b>Minimum attendees:</b></label>
+            <label for="participants-min" class="form-label mb-2 ms-2">
+                <span>
+                    <i class="bi bi-info-circle-fill text-secondary" 
+                       title="How many do you expect to see at least? (include self)" 
+                       aria-label="Hover for extra info"></i>
+                </span>
+                <b>Minimum attendees:</b>
+            </label>
             <input class="form-control mx-auto w-auto rounded-pill py-2 px-4 c-w-200" name="min-participants"
                    placeholder="Type a number" type="number" id="participants-min">
             <p class="feedback mt-2 mb-0">{{ limit_fb | default('') }}</p>
@@ -107,7 +114,11 @@
         <!-- Expected participants -->
         <div class="col-auto text-start">
             <label for="participants-max" class="form-label mb-2 ms-2">
-                <span><i class="bi bi-info-circle-fill text-primary" title="How many are you inviting? (include self)"></i></span>
+                <span>
+                    <i class="bi bi-info-circle-fill text-secondary" 
+                       title="How many are you inviting? (include self)" 
+                       aria-label="Hover for extra info"></i>
+                </span>
                 <b>Total participants:</b>
             </label>
             <input class="form-control mx-auto w-auto rounded-pill py-2 px-4 c-w-200" name="max-participants"
