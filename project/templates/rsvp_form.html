@@ -61,18 +61,18 @@
                         </div>
                     </div>
 
-                    <!-- Plus Button -->
+                    <!-- Plus Button 
                     <button id="add-btn" type="button" class="btn btn-secondary rounded-circle py-2">
                         <i class="bi bi-plus-lg"></i>
-                    </button>
+                    </button> -->
                     <!-- Buttons -->
-                    <div class="d-flex align-items-center gap-3 mt-2 mt-md-0" id="btn-div">
+                    <div class="d-flex align-items-center gap-3 mt-2 c-btn-div">
                         <!-- Plus Button -->
                         <button id="add-btn" type="button" class="btn btn-secondary btn-sm rounded-circle align-self-center">
                             <i class="bi bi-plus-lg"></i>
                         </button>
                         <!-- Remove Button -->
-                        <button id="rmv-btn" type="button" class="btn btn-danger btn-sm rounded-circle align-self-center ms-2">
+                        <button id="rmv-btn" type="button" class="btn btn-danger btn-sm rounded-circle align-self-center">
                             <i class="bi bi-dash-lg"></i>
                         </button>
                     </div>
@@ -120,8 +120,12 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const addBtn = document.getElementById("add-btn");
+            const rmvBtn = document.getElementById("rmv-btn");
+            const btnDiv = document.querySelector(".c-btn-div");
+            
             const wrapper = document.getElementById("dp-wrapper");
             const maxPickers = 3;
+            const minPickers = 1;
 
             addBtn.addEventListener("click", () => {
                 // Set clone limit and alert user
@@ -142,7 +146,20 @@
                 input.value = "";
 
                 // Insert date picker before the add button
-                wrapper.insertBefore(newPicker, addBtn);
+                wrapper.insertBefore(newPicker, btnDiv);
+            });
+
+            rmvBtn.addEventListener("click", () => {
+                // Set delete limit and alert user
+                const currentPickers = wrapper.querySelectorAll(".date-picker-ref").length;
+                if (currentPickers <= minPickers) {
+                    alert("You cannot delete the last field.");
+                    return;
+                }
+
+                // Select and remove the last table
+                const lastPicker = wrapper.querySelectorAll(".date-picker-ref")[currentPickers - 1];
+                lastPicker.remove();
             });
         });
     </script>
