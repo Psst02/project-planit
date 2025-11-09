@@ -80,10 +80,17 @@
                     </tbody>
                 </table>
 
-                <!-- Plus Button -->
-                <button id="add-col-btn" type="button" class="btn btn-secondary rounded-circle align-self-center ms-2 py-2">
-                    <i class="bi bi-plus-lg"></i>
-                </button>
+                <!-- Buttons -->
+                <div class="d-flex align-items-center gap-2 mt-2 mt-md-0" id="btn-div">
+                    <!-- Plus Button -->
+                    <button id="add-col-btn" type="button" class="btn btn-secondary rounded-circle align-self-center ms-2 py-2">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                    <!-- Remove Button -->
+                    <button id="rmv-col-btn" type="button" class="btn btn-danger rounded-circle align-self-center ms-2 py-2">
+                        <i class="bi bi-dash-lg"></i>
+                    </button>
+                </div>
             </div>
             <p class="feedback mt-2 mb-0">{{ table_fb | default('') }}</p>
         </div>
@@ -149,8 +156,12 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const addBtn = document.getElementById("add-col-btn");
+            const rmvBtn = document.getElementById("rmv-col-btn");
+            const btnDiv = document.getElementById("btn-div");
+
             const wrapper = document.getElementById("tables-wrapper");
             const maxTables = 5;
+            const minTables = 1;
 
             addBtn.addEventListener("click", () => {
                 // Set clone limit and alert user
@@ -179,10 +190,22 @@
                     }
                 });
 
-                // Insert table before the add button
-                wrapper.insertBefore(newTable, addBtn);
+                // Insert table before the button section
+                wrapper.insertBefore(newTable, btnDiv);
             });
 
+            rmvBtn.addEventListener("click", () => {
+                // Set delete limit and alert user
+                const currentTables = wrapper.querySelectorAll(".activity-table").length;
+                if (currentTables <= minTables) {
+                    alert("You cannot delete the last table.");
+                    return;
+                }
+
+                // Select and remove the last table
+                const lastTable = wrapper.querySelectorAll(".activity-table")[currentTables - 1];
+                lastTable.remove();
+            });
 
             // Show modal only when link is generated
             {% if invite_link %}
