@@ -41,7 +41,7 @@ def dashboard():
         expected_total = event["expected_total"]
         expires_at = date.fromisoformat(invite["expires_at"])
 
-        # Call system check if expired
+        # Safety check in case the scheduled cleanup missed
         if expires_at <= date.today():
             removal_check(event["id"])
 
