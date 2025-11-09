@@ -72,14 +72,46 @@
                                 <!-- URL: https://getbootstrap.com/docs/5.0/utilities/position/ -->
                                 <div class="position-absolute end-0 bottom-0 z-3">
                                     {% if session["user_id"] == plan.creator_id %}
-                                        <i class="bi bi-patch-question-fill text-info fs-3" title="Creator"></i>
+                                        <span 
+                                            tabindex="0" 
+                                            class="text-secondary" 
+                                            data-bs-toggle="popover" 
+                                            data-bs-trigger="focus" 
+                                            data-bs-placement="top" 
+                                            data-bs-content="Creator">
+                                            <i class="bi bi-patch-question-fill text-info fs-3"></i>
+                                        </span>
                                     {% else %}
                                         {% if plan.user_res is none %}
-                                            <i class="bi bi-patch-exclamation-fill text-warning fs-3" title="Not responded"></i>
+                                            <span 
+                                                tabindex="0" 
+                                                class="text-secondary" 
+                                                data-bs-toggle="popover" 
+                                                data-bs-trigger="focus" 
+                                                data-bs-placement="top" 
+                                                data-bs-content="Not responded">
+                                                <i class="bi bi-patch-exclamation-fill text-warning fs-3"></i>
+                                            </span>
                                         {% elif plan.user_res == 1 %}
-                                            <i class="bi bi-patch-check-fill text-primary fs-3" title="Confirmed"></i>
+                                            <span 
+                                                tabindex="0" 
+                                                class="text-secondary" 
+                                                data-bs-toggle="popover" 
+                                                data-bs-trigger="focus" 
+                                                data-bs-placement="top" 
+                                                data-bs-content="Confirmed">
+                                                <i class="bi bi-patch-check-fill text-primary fs-3"></i>
+                                            </span>
                                         {% else %}
-                                            <i class="bi bi-patch-minus-fill text-secondary fs-3" title="Declined"></i>
+                                            <span 
+                                                tabindex="0" 
+                                                class="text-secondary" 
+                                                data-bs-toggle="popover" 
+                                                data-bs-trigger="focus" 
+                                                data-bs-placement="top" 
+                                                data-bs-content="Declined">
+                                                <i class="bi bi-patch-minus-fill text-secondary fs-3"></i>
+                                            </span>
                                         {% endif %}
                                     {% endif %}
                                 </div>
