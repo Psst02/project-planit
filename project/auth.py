@@ -99,15 +99,19 @@ def signup():
     """Register user via username"""
 
     if request.method == "POST":
+        username_fb = ""
+        password_fb = "" 
         username = (request.form.get("username") or "").strip()
         password = (request.form.get("password") or "").strip()
 
-        # # Ensure inputs are filled
+        # Ensure inputs are filled
         if not username:
-            return render_template("signup.html", username_fb="required field")
+            username_fb = "required field"
         elif not password:
-            return render_template("signup.html", password_fb="required field")
-
+            password_fb = "required field"
+            
+        if username_fb != "" or password_fb != "":
+            return render_template("signup.html", username_fb=username_fb, password_fb=password_fb)
         hashed = ph.hash(password)
 
         db = get_db()
@@ -119,7 +123,7 @@ def signup():
             db.commit()
         except sqlite3.IntegrityError:
             return render_template("signup.html", username_fb="username taken")
-
+        
         # Get latest info
         cur.execute("SELECT id, photo FROM users WHERE username = ?", (username,))
         user = cur.fetchone()
@@ -148,25 +152,29 @@ def login():
         # Ensure token isn't cleared if any
         invite_token = session.pop("invite_token", None)
         session.clear()
-        
+
+        username_fb = ""
+        password_fb = ""
         username = (request.form.get("username") or "").strip()
         password = (request.form.get("password") or "").strip()
 
         # Ensure inputs are filled
         if not username:
-            return render_template("login.html", username_fb="required field")
+            username_fb = "required field"
         elif not password:
-            return render_template("login.html", password_fb="required field")
+            password_fb = "required field"
 
+        if username_fb != "" or password_fb != "":
+            return render_template("signup.html", username_fb=username_fb, password_fb=password_fb)
+            
         db = get_db()
-        cur = db.cursor()
-
+        cur = db.cursor()  
         # Ensure username exists
         cur.execute("SELECT * FROM users WHERE username = ?", (username,))
         user = cur.fetchone()
         if not user:
             return render_template("login.html", username_fb="invalid username")
-
+        
         # Ensure password is correct
         stored_hash = user["hash"]
         try:
@@ -179,11 +187,11 @@ def login():
             new_hash = ph.hash(password)
             cur.execute("UPDATE users SET hash = ? WHERE username = ?", (new_hash, username))
             db.commit()
-
+        
         # Remember user id, photo
         session["user_id"] = user["id"]
         session["user_photo"] = user["photo"]
-
+        
         # Handle redirects
         if invite_token:
             return redirect(url_for("event.respond_event", token=invite_token))
