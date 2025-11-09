@@ -1,11 +1,11 @@
 from datetime import datetime, date
+from app import app
 from helpers import get_db, close_db, removal_check
 
 def remove_events():
 
     db = get_db()
     cur = db.cursor()
-
     # Get all events and their expiry dates
     cur.execute("""
         SELECT e.id AS event_id, i.expires_at
@@ -23,4 +23,5 @@ def remove_events():
     close_db()
 
 if __name__ == "__main__":
-    remove_events()
+    with app.app_context():
+        remove_events()
