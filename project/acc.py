@@ -106,35 +106,40 @@ def reset_password():
     has_password = bool(user["hash"])
 
     if request.method == "POST":
+        old_psw_fb = new_psw_fb = ""
         password = (request.form.get("old-password") or "").strip()
         new_password = (request.form.get("new-password") or "").strip()
         confirmation = (request.form.get("confirmation") or "").strip()
 
-        # Ensure password field isn't empty if any
+        # Required fields check
         if has_password and not password:
-            return render_template("reset_psw.html", has_password=has_password, old_psw_fb="required field")
-
-        # Ensure new password or confirmation not empty
+            old_psw_fb = "required field"
         if not new_password or not confirmation:
-            return render_template("reset_psw.html", has_password=has_password, new_psw_fb="required field(s)")
-
-        # Ensure confirmation matches new password
+            new_psw_fb = "required field(s)"
         elif new_password != confirmation:
-            return render_template("reset_psw.html", has_password=has_password, new_psw_fb="confirm password")
+            new_psw_fb = "confirm password"
 
-        if has_password:
-            # Validate password
+        # Validate old password if any
+        if has_password and old_psw_fb == "":
             try:
                 ph.verify(user["hash"], password)
             except argon2_exceptions.VerifyMismatchError:
-                return render_template("reset_psw.html", has_password=has_password, old_psw_fb="incorrect password")
-
-            # Ensure new password is not the old one
-            try:
-                if ph.verify(user["hash"], new_password):
-                    return render_template("reset_psw.html", has_password=has_password, new_psw_fb="same as old password")
-            except argon2_exceptions.VerifyMismatchError:
-                pass # Do nothing if not matched
+                old_psw_fb = "incorrect password"
+            else:
+                # Valiate new password
+                try:
+                    if ph.verify(user["hash"], new_password):
+                        new_psw_fb = "same as old password"
+                except argon2_exceptions.VerifyMismatchError:
+                    pass  # New password is different
+    
+        # Return feedbck if any
+        if old_psw_fb or new_psw_fb:
+            return render_template("reset_psw.html",
+                has_password=has_password,
+                old_psw_fb=old_psw_fb,
+                new_psw_fb=new_psw_fb
+            )
 
         # Hash and update password
         hashed = ph.hash(new_password)
@@ -162,22 +167,26 @@ def delete_account():
     has_password = bool(user["hash"])
 
     if request.method == "POST":
+        password_fb = ""
         if has_password:
             # Ensure password was submitted
             password = (request.form.get("password") or "").strip()
             if not password:
-                return render_template("delete_account.html", has_password=has_password, password_fb="required field")
+                password_fb = "required field"
+            else:
+                # Validate password
+                stored_hash = user["hash"]
+                try:
+                    ph.verify(stored_hash, password)
+                except argon2_exceptions.VerifyMismatchError:
+                    password_fb = "incorrect password"
 
-            stored_hash = user["hash"]
-            # Validate password
-            try:
-                ph.verify(stored_hash, password)
-            except argon2_exceptions.VerifyMismatchError:
-                return render_template("delete_account.html", has_password=has_password, password_fb="incorrect password")
+        # Return feedbck if any
+        if password_fb:
+            return render_template("delete_account.html", has_password=has_password, password_fb=password_fb)
 
+        # Proceed to delete (No errors)
         session.clear()
-
-        # Delete from database and show dashboard
         cur.execute("DELETE FROM users WHERE id = ?", (user_id,))
         db.commit()
 
