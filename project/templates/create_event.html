@@ -67,7 +67,7 @@
                 <table class="table table-bordered m-0 flex-grow-0 flex-shrink-0 activity-table c-w-200" data-index="0">
                     <thead>
                         <tr>
-                            <td><input type="text" class="form-control" name="topic" placeholder="Activity"></td>
+                            <td><input type="text" class="form-control" name="topic" placeholder="Time - Activity"></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,7 +106,10 @@
 
         <!-- Expected participants -->
         <div class="col-auto text-start">
-            <label for="participants-max" class="form-label mb-2 ms-2"><b>Total participants:</b></label>
+            <label for="participants-max" class="form-label mb-2 ms-2">
+                <span><i class="bi bi-info-circle-fill text-primary" title="How many are you inviting? (include self)"></i></span>
+                <b>Total participants:</b>
+            </label>
             <input class="form-control mx-auto w-auto rounded-pill py-2 px-4 c-w-200" name="max-participants"
                    placeholder="Type a number" type="number" id="participants-max">
             <p class="feedback mt-2 mb-0">{{ max_fb | default('') }}</p>
